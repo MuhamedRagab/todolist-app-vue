@@ -64,7 +64,9 @@ export default {
     setInterval(() => {
       this.timeWritten = new Date(Date.now()).toLocaleTimeString();
     }, 1000);
-    localStorage.setItem("todos", JSON.stringify(this.todos));
+  },
+  updated() {
+    this.todosLocal = JSON.parse(localStorage.getItem("todos"));
   },
   methods: {
     addTodo(text) {
