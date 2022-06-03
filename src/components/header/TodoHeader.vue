@@ -1,20 +1,23 @@
 <template>
   <header class="select-none">
-    <h1 class="text-5xl text-gray-300 font-bold mt-10 text-center">
+    <h1 class="text-4xl sm:text-5xl text-gray-300 font-bold mt-10 text-center">
       To do
       <span class="text-black">List</span>
     </h1>
-    <h3 class="text-center text-xl text-white mt-2 italic">
+    <h3 class="text-center text-sm sm:text-xl text-white mt-2 italic">
       by: <span class="text-cyan-600 font-bold">Mohamed Ragab</span>
     </h3>
 
     <div class="header__date">
       <div class="header__date--history">
         <sup v-text="day"></sup>
-        <strong class="text-5xl text-cyan-300" v-text="month"></strong>
+        <strong
+          class="text-4xl sm:text-5xl text-cyan-300"
+          v-text="month"
+        ></strong>
         <sub class="translate-y-2 text-black" v-text="year"></sub>
       </div>
-      <span v-text="time" class="text-3xl"></span>
+      <span v-text="time" class="text-2xl sm:text-3xl"></span>
     </div>
   </header>
 </template>

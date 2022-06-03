@@ -1,19 +1,21 @@
 <template>
   <div class="w-full md:w-2/3 min-h-screen mx-auto p-8">
     <todo-header />
-    <todo-form
-      :todos="todos"
-      @add="addTodo($event)"
-      @clear="clearAllTodos"
-      @all="showAllTodos"
-      @active="showActiveTodos"
-      @completed="showCompletedTodos"
-    />
-    <todo-list
-      :todos="todos"
-      @remove="removeTodo($event)"
-      @change="changeTodoStatus($event)"
-    />
+    <main>
+      <todo-form
+        :todos="todos"
+        @add="addTodo($event)"
+        @clear="clearAllTodos"
+        @all="showAllTodos"
+        @active="showActiveTodos"
+        @completed="showCompletedTodos"
+      />
+      <todo-list
+        :todos="todos"
+        @remove="removeTodo($event)"
+        @change="changeTodoStatus($event)"
+      />
+    </main>
   </div>
 </template>
 
