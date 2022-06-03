@@ -32,30 +32,39 @@ export default {
   data() {
     return {
       timeWritten: new Date(Date.now()).toLocaleTimeString(),
-      todos: JSON.parse(localStorage.getItem("todos")) || [
-        {
-          text: "Learn Vue",
-          Completed: false,
-          date: this.timeWritten,
-        },
-        {
-          text: "Learn Vuex",
-          Completed: false,
-          date: this.timeWritten,
-        },
-        {
-          text: "Learn Vue Router",
-          Completed: false,
-          date: this.timeWritten,
-        },
-      ],
-      todosLocal: JSON.parse(localStorage.getItem("todos")),
+      todos: JSON.parse(localStorage.getItem("todos")) || [],
+      todosLocal: JSON.parse(localStorage.getItem("todos")) || [],
     };
+  },
+  beforeCreate() {
+    if (localStorage.getItem("todos") === null) {
+      localStorage.setItem(
+        "todos",
+        JSON.stringify([
+          {
+            text: "Learn Vue",
+            Completed: false,
+            date: new Date(Date.now()).toLocaleTimeString(),
+          },
+          {
+            text: "Learn Vuex",
+            Completed: false,
+            date: new Date(Date.now()).toLocaleTimeString(),
+          },
+          {
+            text: "Learn Vue Router",
+            Completed: false,
+            date: new Date(Date.now()).toLocaleTimeString(),
+          },
+        ])
+      );
+    }
   },
   mounted() {
     setInterval(() => {
       this.timeWritten = new Date(Date.now()).toLocaleTimeString();
     }, 1000);
+    localStorage.setItem("todos", JSON.stringify(this.todos));
   },
   methods: {
     addTodo(text) {
@@ -84,15 +93,21 @@ export default {
       console.clear();
     },
     showAllTodos() {
-      this.todos = this.todosLocal;
+      if (this.todosLocal) {
+        this.todos = this.todosLocal;
+      }
       console.clear();
     },
     showActiveTodos() {
-      this.todos = this.todosLocal.filter((todo) => !todo.Completed);
+      if (this.todosLocal) {
+        this.todos = this.todosLocal.filter((todo) => !todo.Completed);
+      }
       console.clear();
     },
     showCompletedTodos() {
-      this.todos = this.todosLocal.filter((todo) => todo.Completed);
+      if (this.todosLocal) {
+        this.todos = this.todosLocal.filter((todo) => todo.Completed);
+      }
       console.clear();
     },
   },
