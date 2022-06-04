@@ -34,7 +34,7 @@ export default {
     removeTodo(index) {
       this.$emit("remove", index);
     },
-    changeTodoStatus(index) {
+    changeTodoStates(index) {
       this.$emit("change", index);
     },
   },

@@ -13,7 +13,7 @@
       <todo-list
         :todos="todosList"
         @remove="removeTodo($event)"
-        @change="changeTodoStatus($event)"
+        @change="changeTodoStates($event)"
       />
     </main>
   </div>
@@ -85,8 +85,8 @@ export default {
       this.todos.splice(index, 1);
       localStorage.setItem("todos", JSON.stringify(this.todos));
     },
-    changeTodoStatus(index) {
-      this.todos[index].Completed = !this.todos[index].Completed;
+    changeTodoStates(index) {
+      this.todosList[index].Completed = !this.todosList[index].Completed;
       localStorage.setItem("todos", JSON.stringify(this.todos));
     },
     clearAllTodos() {
