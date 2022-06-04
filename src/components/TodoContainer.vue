@@ -91,7 +91,7 @@ export default {
     },
     clearAllTodos() {
       localStorage.removeItem("todos");
-      this.todos = [];
+      this.todosList = this.todos = [];
     },
     showAllTodos() {
       this.todosList = this.todos;

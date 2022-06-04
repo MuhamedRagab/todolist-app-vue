@@ -12,7 +12,7 @@
           <div
             class="flex flex-col sm:flex-row sm:items-center justify-start gap-4"
           >
-            <div @click="changeTodoStatus(i)" class="compteled-todo">
+            <div @click="changeTodoStates(i)" class="compteled-todo">
               <small
                 class="text-green-300"
                 v-text="todo.Completed ? '✓' : ''"
