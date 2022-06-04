@@ -11,7 +11,7 @@
   <div class="menu">
     <div>
       <button @click="clearAllTodos" class="menu__btn--clear">Clear all</button>
-      <small class="menu__todos-length">Todos length: {{ todos.length }}</small>
+      <small class="menu__todos-length">Items left: {{ todos.length }}</small>
     </div>
     <ul class="menu__states">
       <li @click="allTodos">All</li>

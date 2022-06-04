@@ -11,7 +11,7 @@
         @completed="showCompletedTodos"
       />
       <todo-list
-        :todos="todos"
+        :todos="todosList"
         @remove="removeTodo($event)"
         @change="changeTodoStatus($event)"
       />
@@ -30,16 +30,16 @@ export default {
     TodoForm,
     TodoList,
   },
-  emits: ["add", "clear", "remove", "change"],
+  emits: ["add", "clear", "remove", "change", "all", "active", "completed"],
   data() {
     return {
       timeWritten: new Date(Date.now()).toLocaleTimeString(),
       todos: JSON.parse(localStorage.getItem("todos")) || [],
-      todosLocal: JSON.parse(localStorage.getItem("todos")) || [],
+      todosList: JSON.parse(localStorage.getItem("todos")) || [],
     };
   },
   beforeCreate() {
-    if (localStorage.getItem("todos") === null) {
+    if (localStorage.getItem("todos") == null) {
       localStorage.setItem(
         "todos",
         JSON.stringify([
@@ -66,9 +66,9 @@ export default {
     setInterval(() => {
       this.timeWritten = new Date(Date.now()).toLocaleTimeString();
     }, 1000);
-  },
-  updated() {
-    this.todosLocal = JSON.parse(localStorage.getItem("todos"));
+    console.clear();
+    this.todosList = this.todos;
+    console.log(this.todosList);
   },
   methods: {
     addTodo(text) {
@@ -80,12 +80,10 @@ export default {
         });
         localStorage.setItem("todos", JSON.stringify(this.todos));
       }
-      console.clear();
     },
     removeTodo(index) {
       this.todos.splice(index, 1);
       localStorage.setItem("todos", JSON.stringify(this.todos));
-      console.clear();
     },
     changeTodoStatus(index) {
       this.todos[index].Completed = !this.todos[index].Completed;
@@ -94,25 +92,15 @@ export default {
     clearAllTodos() {
       localStorage.removeItem("todos");
       this.todos = [];
-      console.clear();
     },
     showAllTodos() {
-      if (this.todosLocal) {
-        this.todos = this.todosLocal;
-      }
-      console.clear();
+      this.todosList = this.todos;
     },
     showActiveTodos() {
-      if (this.todosLocal) {
-        this.todos = this.todosLocal.filter((todo) => !todo.Completed);
-      }
-      console.clear();
+      this.todosList = this.todos.filter((todo) => !todo.Completed);
     },
     showCompletedTodos() {
-      if (this.todosLocal) {
-        this.todos = this.todosLocal.filter((todo) => todo.Completed);
-      }
-      console.clear();
+      this.todosList = this.todos.filter((todo) => todo.Completed);
     },
   },
 };
