@@ -94,10 +94,23 @@ export default {
       localStorage.setItem("todos", JSON.stringify(this.todos));
     },
     editTodo(index) {
-      let editedTodo = prompt("Edit todo", this.todos[index].text);
-      if (editedTodo !== null) {
-        this.todos[index].text = editedTodo;
-        localStorage.setItem("todos", JSON.stringify(this.todos));
+      if (this.todosList !== this.todos) {
+        let editedElement = this.todosList[index];
+        let indexOfEditedElement = this.todos.indexOf(editedElement);
+        let editedTodo = prompt(
+          "Edit todo",
+          this.todos[indexOfEditedElement].text
+        );
+        if (editedTodo !== null) {
+          this.todos[indexOfEditedElement].text = editedTodo;
+          localStorage.setItem("todos", JSON.stringify(this.todos));
+        }
+      } else {
+        let editedTodo = prompt("Edit todo", this.todos[index].text);
+        if (editedTodo !== null) {
+          this.todos[index].text = editedTodo;
+          localStorage.setItem("todos", JSON.stringify(this.todos));
+        }
       }
     },
     changeTodoStates(index) {
