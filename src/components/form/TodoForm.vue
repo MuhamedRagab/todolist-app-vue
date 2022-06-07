@@ -58,13 +58,13 @@ export default {
 
   &-btn {
     @apply h-10 w-11 pb-1 border-2 text-white text-xl rounded-full
-    hover:border-blue-500 hover:text-blue-500 transition;
+    hover:border-blue-500 hover:text-blue-500;
   }
 
   &-input {
     @apply w-full p-2 border-b-2 bg-transparent border-gray-300
     focus:border-blue-500 outline-none placeholder:text-gray-400
-    text-xl text-white transition;
+    text-xl text-white;
   }
 }
 .menu {
@@ -77,12 +77,12 @@ export default {
     li {
       @apply text-cyan-400 text-xl border-b-2
     border-cyan-400 hover:border-cyan-600
-      cursor-pointer transition font-bold;
+      cursor-pointer font-bold;
     }
   }
   &__btn--clear {
     @apply block text-red-400 text-xl hover:text-red-600
-    italic transition;
+    italic;
   }
   &__todos-length {
     @apply text-gray-400 text-xl italic;

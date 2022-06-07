@@ -3,8 +3,7 @@
     <ul class="todo-list">
       <li class="todo-list__item" v-for="(todo, i) in todos" :key="i">
         <div class="todo-list__date">
-          <div class="todo-list__date--circle"></div>
-          <div class="todo-list__date--arrow"></div>
+          <div class="todo-list__date--icon">🕰️</div>
           <small class="todo-list__date--text" v-text="todo.date"></small>
         </div>
 
@@ -52,28 +51,18 @@ export default {
   @apply mt-10;
   $data-color: #fff;
   &__date {
-    @apply text-center flex items-center justify-center;
-
-    &--circle {
-      @apply w-4 h-4 flex opacity-50 rounded-full;
-      border: 2px solid $data-color;
-    }
-
-    &--arrow {
-      @apply w-10 h-0.5 opacity-50;
-      background: $data-color;
-    }
+    @apply text-center flex items-center justify-center gap-2;
 
     &--text {
       color: $data-color;
-      margin-left: 0.7rem;
     }
   }
 
   &__item {
-    @apply overflow-x-auto bg-slate-900 text-gray-200
-    flex flex-col sm:flex-row items-center gap-4 p-4 mt-2
+    @apply overflow-x-auto bg-slate-900 mt-2
+    flex flex-col sm:flex-row items-center gap-4 p-4
     text-xl rounded-md hover:scale-105 transition;
+    color: $data-color;
 
     &--del {
       @apply text-red-400 text-2xl hover:text-red-600
