@@ -68,7 +68,6 @@ export default {
     }, 1000);
     console.clear();
     this.todosList = this.todos;
-    console.log(this.todosList);
   },
   methods: {
     addTodo(text) {
@@ -82,7 +81,9 @@ export default {
       }
     },
     removeTodo(index) {
-      this.todos.splice(index, 1);
+      let deletedElement = this.todosList.splice(index, 1);
+      let indexOfDeletedElement = this.todos.indexOf(deletedElement[0]);
+      this.todos.splice(indexOfDeletedElement, 1);
       localStorage.setItem("todos", JSON.stringify(this.todos));
     },
     changeTodoStates(index) {

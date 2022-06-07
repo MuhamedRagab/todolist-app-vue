@@ -1,10 +1,10 @@
 <template>
-  <header class="select-none">
-    <h1 class="text-4xl sm:text-5xl text-gray-300 font-bold mt-10 text-center">
+  <header class="header">
+    <h1 class="header__title">
       To do
       <span class="text-black">List</span>
     </h1>
-    <h3 class="text-center text-sm sm:text-xl text-white mt-2 italic">
+    <h3 class="header__author">
       by: <span class="text-cyan-600 font-bold">Mohamed Ragab</span>
     </h3>
 
@@ -44,17 +44,29 @@ export default {
 </script>
 
 <style lang="scss">
-.header__date {
-  @apply flex justify-between flex-col sm:flex-row gap-6
+.header {
+  @apply select-none;
+
+  &__title {
+    @apply text-4xl sm:text-5xl text-gray-300 font-bold mt-10 text-center;
+  }
+
+  &__author {
+    @apply text-center text-sm sm:text-xl text-white mt-2 italic;
+  }
+
+  &__date {
+    @apply flex justify-between flex-col sm:flex-row gap-6
        text-gray-300 items-center mt-12;
 
-  &--history {
-    @apply flex gap-4 justify-center items-center
+    &--history {
+      @apply flex gap-4 justify-center items-center
     italic;
 
-    sup,
-    sub {
-      @apply text-3xl;
+      sup,
+      sub {
+        @apply text-3xl;
+      }
     }
   }
 }
