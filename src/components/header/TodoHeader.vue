@@ -61,7 +61,7 @@ export default {
 
     &--history {
       @apply flex gap-4 justify-center items-center
-    italic;
+      italic;
 
       sup,
       sub {
