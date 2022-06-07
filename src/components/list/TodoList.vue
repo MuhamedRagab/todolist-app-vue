@@ -17,9 +17,16 @@
                 v-text="todo.Completed ? '✓' : ''"
               ></small>
             </div>
-            <span>{{ todo.text }}</span>
+            <span v-text="todo.text"></span>
           </div>
-          <button class="todo-list__item--del" @click="removeTodo(i)">X</button>
+          <div class="todo-list__item-btns">
+            <button class="todo-list__item-btns--edit" @click="editTodo(i)">
+              🖊️
+            </button>
+            <button class="todo-list__item-btns--del" @click="removeTodo(i)">
+              X
+            </button>
+          </div>
         </div>
       </li>
     </ul>
@@ -33,8 +40,19 @@ export default {
     removeTodo(index) {
       this.$emit("remove", index);
     },
+    editTodo(index) {
+      this.$emit("edit", index);
+    },
     changeTodoStates(index) {
       this.$emit("change", index);
+    },
+    randomColor() {
+      let letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
     },
   },
 };
@@ -50,6 +68,7 @@ export default {
 .todo-list {
   @apply mt-10;
   $data-color: #fff;
+
   &__date {
     @apply text-center flex items-center justify-center gap-2;
 
@@ -64,14 +83,18 @@ export default {
     text-xl rounded-md hover:scale-105 transition;
     color: $data-color;
 
-    &--del {
-      @apply text-red-400 text-2xl hover:text-red-600
-      cursor-pointer transition select-none;
+    &-btns {
+      @apply flex items-center gap-3 select-none;
+      &--del {
+        @apply text-red-400 text-2xl hover:text-red-600
+       cursor-pointer transition;
+      }
     }
-  }
-  .compteled-todo {
-    @apply w-8 h-8 border-2 rounded-full cursor-pointer
-  flex justify-center items-center select-none;
+
+    .compteled-todo {
+      @apply w-8 h-8 border-2 rounded-full cursor-pointer
+      flex justify-center items-center select-none;
+    }
   }
 }
 </style>

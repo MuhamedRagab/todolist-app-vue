@@ -14,6 +14,7 @@
         :todos="todosList"
         @remove="removeTodo($event)"
         @change="changeTodoStates($event)"
+        @edit="editTodo($event)"
       />
     </main>
   </div>
@@ -30,7 +31,6 @@ export default {
     TodoForm,
     TodoList,
   },
-  emits: ["add", "clear", "remove", "change", "all", "active", "completed"],
   data() {
     return {
       timeWritten: new Date(Date.now()).toLocaleTimeString(),
@@ -69,6 +69,9 @@ export default {
     console.clear();
     this.todosList = this.todos;
   },
+  updated() {
+    console.clear();
+  },
   methods: {
     addTodo(text) {
       if (text.trim() !== "") {
@@ -81,10 +84,21 @@ export default {
       }
     },
     removeTodo(index) {
-      let deletedElement = this.todosList.splice(index, 1);
-      let indexOfDeletedElement = this.todos.indexOf(deletedElement[0]);
-      this.todos.splice(indexOfDeletedElement, 1);
+      if (this.todosList !== this.todos) {
+        let deletedElement = this.todosList.splice(index, 1);
+        let indexOfDeletedElement = this.todos.indexOf(deletedElement[0]);
+        this.todos.splice(indexOfDeletedElement, 1);
+      } else {
+        this.todos.splice(index, 1);
+      }
       localStorage.setItem("todos", JSON.stringify(this.todos));
+    },
+    editTodo(index) {
+      let editedTodo = prompt("Edit todo", this.todos[index].text);
+      if (editedTodo !== null) {
+        this.todos[index].text = editedTodo;
+        localStorage.setItem("todos", JSON.stringify(this.todos));
+      }
     },
     changeTodoStates(index) {
       this.todosList[index].Completed = !this.todosList[index].Completed;
