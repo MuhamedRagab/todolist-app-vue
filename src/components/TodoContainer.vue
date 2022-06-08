@@ -10,12 +10,15 @@
         @active="showActiveTodos"
         @completed="showCompletedTodos"
       />
-      <todo-list
-        :todos="todosList"
-        @remove="removeTodo($event)"
-        @change="changeTodoStates($event)"
-        @edit="editTodo($event)"
-      />
+      <Transition>
+        <todo-list
+          v-if="show"
+          :todos="todosList"
+          @remove="removeTodo($event)"
+          @change="changeTodoStates($event)"
+          @edit="editTodo($event)"
+        />
+      </Transition>
     </main>
   </div>
 </template>
@@ -33,6 +36,7 @@ export default {
   },
   data() {
     return {
+      show: true,
       timeWritten: new Date(Date.now()).toLocaleTimeString(),
       todos: JSON.parse(localStorage.getItem("todos")) || [],
       todosList: JSON.parse(localStorage.getItem("todos")) || [],
@@ -123,15 +127,37 @@ export default {
     },
     showAllTodos() {
       this.todosList = this.todos;
+      this.show = false;
+      this.showTodosSlowly();
     },
     showActiveTodos() {
       this.todosList = this.todos.filter((todo) => !todo.Completed);
+      this.show = false;
+      this.showTodosSlowly();
     },
     showCompletedTodos() {
       this.todosList = this.todos.filter((todo) => todo.Completed);
+      this.show = false;
+      this.showTodosSlowly();
+    },
+    showTodosSlowly() {
+      setTimeout(() => {
+        this.show = true;
+      }, 400);
     },
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.4s ease-in-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

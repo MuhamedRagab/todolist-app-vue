@@ -72,7 +72,7 @@ export default {
   justify-between items-center select-none;
 
   &__states {
-    @apply flex justify-center items-center gap-4 my-4;
+    @apply flex justify-center items-center gap-x-4 my-4;
 
     li {
       @apply text-cyan-400 text-xl border-b-2
