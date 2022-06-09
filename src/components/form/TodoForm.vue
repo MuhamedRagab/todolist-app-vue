@@ -14,9 +14,9 @@
       <small class="menu__todos-length">Items left: {{ todos.length }}</small>
     </div>
     <ul class="menu__states">
-      <li @click="allTodos">All</li>
-      <li @click="activeTodos">Active</li>
-      <li @click="completedTodos">Completed</li>
+      <li :class="choiceAll" @click="allTodos">All</li>
+      <li :class="choiceActive" @click="activeTodos">Active</li>
+      <li :class="choiceCompleted" @click="completedTodos">Completed</li>
     </ul>
   </div>
 </template>
@@ -28,6 +28,9 @@ export default {
   data() {
     return {
       text: "",
+      choiceAll: "active",
+      choiceActive: "",
+      choiceCompleted: "",
     };
   },
   methods: {
@@ -40,12 +43,18 @@ export default {
     },
     allTodos() {
       this.$emit("all");
+      this.choiceAll = "active";
+      this.choiceActive = this.choiceCompleted = "";
     },
     activeTodos() {
       this.$emit("active");
+      this.choiceActive = "active";
+      this.choiceAll = this.choiceCompleted = "";
     },
     completedTodos() {
       this.$emit("completed");
+      this.choiceCompleted = "active";
+      this.choiceActive = this.choiceAll = "";
     },
   },
 };
@@ -75,8 +84,8 @@ export default {
     @apply flex justify-center items-center gap-x-4 my-4;
 
     li {
-      @apply text-cyan-400 text-xl border-b-2
-    border-cyan-400 hover:border-cyan-600
+      @apply text-cyan-600 text-xl border-b-2
+    border-cyan-600 hover:border-cyan-400
       cursor-pointer font-bold;
     }
   }
@@ -86,6 +95,9 @@ export default {
   }
   &__todos-length {
     @apply text-gray-400 text-xl italic;
+  }
+  .active {
+    @apply border-cyan-400 text-cyan-400;
   }
 }
 </style>

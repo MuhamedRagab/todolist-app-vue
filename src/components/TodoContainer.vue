@@ -1,6 +1,6 @@
 <template>
   <div class="w-full md:w-2/3 min-h-screen mx-auto p-8">
-    <todo-header />
+    <todo-header :time="timeWritten" />
     <main>
       <todo-form
         :todos="todos"
@@ -37,30 +37,30 @@ export default {
   data() {
     return {
       show: true,
-      timeWritten: new Date(Date.now()).toLocaleTimeString(),
+      timeWritten: new Date().toLocaleTimeString(),
       todos: JSON.parse(localStorage.getItem("todos")) || [],
-      todosList: JSON.parse(localStorage.getItem("todos")) || [],
+      todosList: [],
     };
   },
   beforeCreate() {
-    if (localStorage.getItem("todos") == null) {
+    if (!localStorage.getItem("todos")) {
       localStorage.setItem(
         "todos",
         JSON.stringify([
           {
             text: "Learn Vue",
             Completed: false,
-            date: new Date(Date.now()).toLocaleTimeString(),
+            date: new Date().toLocaleTimeString(),
           },
           {
             text: "Learn Vuex",
             Completed: false,
-            date: new Date(Date.now()).toLocaleTimeString(),
+            date: new Date().toLocaleTimeString(),
           },
           {
             text: "Learn Vue Router",
             Completed: false,
-            date: new Date(Date.now()).toLocaleTimeString(),
+            date: new Date().toLocaleTimeString(),
           },
         ])
       );
@@ -68,24 +68,20 @@ export default {
   },
   mounted() {
     setInterval(() => {
-      this.timeWritten = new Date(Date.now()).toLocaleTimeString();
+      this.timeWritten = new Date().toLocaleTimeString();
     }, 1000);
-    console.clear();
     this.todosList = this.todos;
-  },
-  updated() {
     console.clear();
   },
   methods: {
     addTodo(text) {
-      if (text.trim() !== "") {
-        this.todos.push({
-          text,
-          Completed: false,
-          date: this.timeWritten,
-        });
-        localStorage.setItem("todos", JSON.stringify(this.todos));
-      }
+      if (text.trim() === "") return;
+      this.todos.push({
+        text,
+        Completed: false,
+        date: this.timeWritten,
+      });
+      localStorage.setItem("todos", JSON.stringify(this.todos));
     },
     removeTodo(index) {
       if (this.todosList !== this.todos) {
@@ -105,13 +101,13 @@ export default {
           "Edit todo",
           this.todos[indexOfEditedElement].text
         );
-        if (editedTodo !== null) {
+        if (editedTodo !== null || editedTodo !== "") {
           this.todos[indexOfEditedElement].text = editedTodo;
           localStorage.setItem("todos", JSON.stringify(this.todos));
         }
       } else {
         let editedTodo = prompt("Edit todo", this.todos[index].text);
-        if (editedTodo !== null) {
+        if (editedTodo !== null || editedTodo !== "") {
           this.todos[index].text = editedTodo;
           localStorage.setItem("todos", JSON.stringify(this.todos));
         }
@@ -127,22 +123,21 @@ export default {
     },
     showAllTodos() {
       this.todosList = this.todos;
-      this.show = false;
       this.showTodosSlowly();
     },
     showActiveTodos() {
       this.todosList = this.todos.filter((todo) => !todo.Completed);
-      this.show = false;
       this.showTodosSlowly();
     },
     showCompletedTodos() {
       this.todosList = this.todos.filter((todo) => todo.Completed);
-      this.show = false;
       this.showTodosSlowly();
     },
     showTodosSlowly() {
+      this.show = false;
       setTimeout(() => {
         this.show = true;
+        console.clear();
       }, 400);
     },
   },

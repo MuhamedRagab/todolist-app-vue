@@ -25,20 +25,15 @@
 <script>
 export default {
   name: "TodoHeader",
+  props: ["time"],
   data() {
     return {
-      time: new Date(Date.now()).toLocaleTimeString(),
       day: new Date(Date.now()).getDate(),
       month: new Date(Date.now()).toLocaleString("en-us", { month: "long" }),
       year: new Date(Date.now()).toLocaleDateString("en-US", {
         year: "numeric",
       }),
     };
-  },
-  mounted() {
-    setInterval(() => {
-      this.time = new Date(Date.now()).toLocaleTimeString();
-    }, 1000);
   },
 };
 </script>
