@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-gray-900 bg-gray-500">
+  <div class="min-h-screen bg-gradient-to-b from-gray-800 bg-gray-600">
     <todo-container />
   </div>
 </template>

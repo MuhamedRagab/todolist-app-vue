@@ -1,6 +1,13 @@
 <template>
   <article>
     <ul class="todo-list">
+      <h2 class="text-2xl text-white italic font-serif mb-6">
+        <span
+          v-text="listPosition"
+          class="text-green-400 font-bold px-1"
+        ></span>
+        the todos you have.
+      </h2>
       <li class="todo-list__item" v-for="(todo, i) in todos" :key="i">
         <div class="todo-list__date">
           <div class="todo-list__date--icon">🕰️</div>
@@ -35,7 +42,7 @@
 <script>
 export default {
   name: "TodoList",
-  props: ["todos"],
+  props: ["todos", "listPosition"],
   methods: {
     removeTodo(index) {
       this.$emit("remove", index);

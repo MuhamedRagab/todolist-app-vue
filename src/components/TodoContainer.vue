@@ -14,6 +14,7 @@
         <todo-list
           v-if="show"
           :todos="todosList"
+          :listPosition="listPosition"
           @remove="removeTodo($event)"
           @change="changeTodoStates($event)"
           @edit="editTodo($event)"
@@ -37,6 +38,7 @@ export default {
   data() {
     return {
       show: true,
+      listPosition: "All",
       timeWritten: new Date().toLocaleTimeString(),
       todos: JSON.parse(localStorage.getItem("todos")) || [],
       todosList: [],
@@ -124,14 +126,17 @@ export default {
     showAllTodos() {
       this.todosList = this.todos;
       this.showTodosSlowly();
+      this.listPosition = "All";
     },
     showActiveTodos() {
       this.todosList = this.todos.filter((todo) => !todo.Completed);
       this.showTodosSlowly();
+      this.listPosition = "Active";
     },
     showCompletedTodos() {
       this.todosList = this.todos.filter((todo) => todo.Completed);
       this.showTodosSlowly();
+      this.listPosition = "Completed";
     },
     showTodosSlowly() {
       this.show = false;
