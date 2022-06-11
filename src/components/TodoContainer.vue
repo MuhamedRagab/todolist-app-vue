@@ -84,6 +84,7 @@ export default {
         date: this.timeWritten,
       });
       localStorage.setItem("todos", JSON.stringify(this.todos));
+      this.updateTodosList();
     },
     removeTodo(index) {
       if (this.todosList !== this.todos) {
@@ -118,25 +119,35 @@ export default {
     changeTodoStates(index) {
       this.todosList[index].Completed = !this.todosList[index].Completed;
       localStorage.setItem("todos", JSON.stringify(this.todos));
+      this.updateTodosList();
     },
     clearAllTodos() {
       localStorage.removeItem("todos");
       this.todosList = this.todos = [];
     },
     showAllTodos() {
-      this.todosList = this.todos;
-      this.showTodosSlowly();
       this.listPosition = "All";
+      this.updateTodosList();
+      this.showTodosSlowly();
     },
     showActiveTodos() {
-      this.todosList = this.todos.filter((todo) => !todo.Completed);
-      this.showTodosSlowly();
       this.listPosition = "Active";
+      this.updateTodosList();
+      this.showTodosSlowly();
     },
     showCompletedTodos() {
-      this.todosList = this.todos.filter((todo) => todo.Completed);
-      this.showTodosSlowly();
       this.listPosition = "Completed";
+      this.updateTodosList();
+      this.showTodosSlowly();
+    },
+    updateTodosList() {
+      if (this.listPosition === "Active") {
+        this.todosList = this.todos.filter((todo) => !todo.Completed);
+      } else if (this.listPosition === "Completed") {
+        this.todosList = this.todos.filter((todo) => todo.Completed);
+      } else {
+        this.todosList = this.todos;
+      }
     },
     showTodosSlowly() {
       this.show = false;
