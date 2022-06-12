@@ -11,7 +11,7 @@
   <div class="menu">
     <div>
       <button @click="clearAllTodos" class="menu__btn--clear">Clear all</button>
-      <small class="menu__todos-length">Items left: {{ todos.length }}</small>
+      <small class="menu__todos-length">Items left: {{ length }}</small>
     </div>
     <ul class="menu__states">
       <li :class="choiceAll" @click="allTodos">All</li>
@@ -24,7 +24,7 @@
 <script>
 export default {
   name: "TodoForm",
-  props: ["todos"],
+  props: ["todos", "length"],
   data() {
     return {
       text: "",

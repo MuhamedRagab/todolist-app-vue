@@ -4,6 +4,7 @@
     <main>
       <todo-form
         :todos="todos"
+        :length="todosList.length"
         @add="addTodo($event)"
         @clear="clearAllTodos"
         @all="showAllTodos"
@@ -104,16 +105,16 @@ export default {
           "Edit todo",
           this.todos[indexOfEditedElement].text
         );
-        if (editedTodo !== null || editedTodo !== "") {
-          this.todos[indexOfEditedElement].text = editedTodo;
-          localStorage.setItem("todos", JSON.stringify(this.todos));
-        }
+        if (editedTodo === null || editedTodo.trim() === "") return;
+        this.todos[indexOfEditedElement].text = editedTodo;
+        this.todos[indexOfEditedElement].date = this.timeWritten;
       } else {
         let editedTodo = prompt("Edit todo", this.todos[index].text);
-        if (editedTodo !== null || editedTodo !== "") {
-          this.todos[index].text = editedTodo;
-          localStorage.setItem("todos", JSON.stringify(this.todos));
-        }
+        if (editedTodo === null || editedTodo.trim() === "") return;
+        this.todos[index].text = editedTodo;
+        this.todos[index].date = this.timeWritten;
+
+        localStorage.setItem("todos", JSON.stringify(this.todos));
       }
     },
     changeTodoStates(index) {

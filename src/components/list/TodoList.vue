@@ -6,7 +6,7 @@
           v-text="listPosition"
           class="text-green-400 font-bold px-1"
         ></span>
-        the todos you have.
+        todos
       </h2>
       <li class="todo-list__item" v-for="(todo, i) in todos" :key="i">
         <div class="todo-list__date">
