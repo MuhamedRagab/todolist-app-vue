@@ -87,12 +87,14 @@ export default {
       this.updateTodosList();
     },
     removeTodo(index) {
-      if (this.todosList !== this.todos) {
-        let deletedElement = this.todosList.splice(index, 1);
-        let indexOfDeletedElement = this.todos.indexOf(deletedElement[0]);
-        this.todos.splice(indexOfDeletedElement, 1);
-      } else {
-        this.todos.splice(index, 1);
+      if (confirm("Are you sure you want to delete this todo?")) {
+        if (this.todosList !== this.todos) {
+          let deletedElement = this.todosList.splice(index, 1);
+          let indexOfDeletedElement = this.todos.indexOf(deletedElement[0]);
+          this.todos.splice(indexOfDeletedElement, 1);
+        } else {
+          this.todos.splice(index, 1);
+        }
       }
       localStorage.setItem("todos", JSON.stringify(this.todos));
     },
