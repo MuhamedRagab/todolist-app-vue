@@ -45,7 +45,7 @@ export default {
       todosList: [],
     };
   },
-  beforeCreate() {
+  created() {
     if (!localStorage.getItem("todos")) {
       localStorage.setItem(
         "todos",
@@ -74,7 +74,6 @@ export default {
       this.timeWritten = new Date().toLocaleTimeString();
     }, 1000);
     this.todosList = this.todos;
-    console.clear();
   },
   methods: {
     addTodo(text) {
@@ -154,7 +153,6 @@ export default {
       this.show = false;
       setTimeout(() => {
         this.show = true;
-        console.clear();
       }, 400);
     },
   },

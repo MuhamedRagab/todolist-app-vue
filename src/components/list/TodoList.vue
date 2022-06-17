@@ -43,6 +43,7 @@
 export default {
   name: "TodoList",
   props: ["todos", "listPosition"],
+  emits: ["editTodo", "removeTodo", "changeTodoStates"],
   methods: {
     removeTodo(index) {
       this.$emit("remove", index);

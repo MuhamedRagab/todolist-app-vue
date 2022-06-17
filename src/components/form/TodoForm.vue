@@ -25,6 +25,7 @@
 export default {
   name: "TodoForm",
   props: ["todos", "length"],
+  emits: ["add", "clear", "all", "active", "completed"],
   data() {
     return {
       text: "",
